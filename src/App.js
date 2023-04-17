@@ -34,6 +34,8 @@ function App() {
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<TutorialsList />} />
+          <Route path="/add" element={<AddTutorial />} />
+          <Route path="/tutorials/:id" element={<Tutorial />} />
         </Routes>
       </div>
     </div>
