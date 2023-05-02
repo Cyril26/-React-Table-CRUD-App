@@ -12,7 +12,7 @@ function App() {
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/tutorials" className="navbar-brand">
+        <a href="/" className="navbar-brand">
           Cyril
         </a>
 
