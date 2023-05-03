@@ -35,3 +35,11 @@
   align-items: center;
   height: 350px;
 }
+
+.form-group {
+  margin: 20px 0;
+}
+
+.mr-5 {
+  margin-right: 5px;
+}

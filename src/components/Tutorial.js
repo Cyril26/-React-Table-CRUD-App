@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TutorialDataService from "../services/TutorialService";
+import { useParams } from "react-router-dom";
+import "../App.css";
 
 const Tutorial = (props) => {
   const initialTutorialState = {
@@ -11,11 +13,12 @@ const Tutorial = (props) => {
   const [currentTutorial, setCurrentTutorial] = useState(initialTutorialState);
   const [message, setMessage] = useState("");
 
+  const { id } = useParams();
+
   const getTutorial = (id) => {
     TutorialDataService.get(id)
       .then((response) => {
         setCurrentTutorial(response.data);
-        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -23,8 +26,8 @@ const Tutorial = (props) => {
   };
 
   useEffect(() => {
-    getTutorial(props.match.params.id);
-  }, [props.match.params.id]);
+    getTutorial(id);
+  }, [id]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -42,7 +45,6 @@ const Tutorial = (props) => {
     TutorialDataService.update(currentTutorial.id, data)
       .then((response) => {
         setCurrentTutorial({ ...currentTutorial, published: status });
-        console.log(response.data);
         setMessage("The status was updated successfully!");
       })
       .catch((e) => {
@@ -53,7 +55,6 @@ const Tutorial = (props) => {
   const updateTutorial = () => {
     TutorialDataService.update(currentTutorial.id, currentTutorial)
       .then((response) => {
-        console.log(response.data);
         setMessage("The tutorial was updated successfully!");
       })
       .catch((e) => {
@@ -64,7 +65,6 @@ const Tutorial = (props) => {
   const deleteTutorial = () => {
     TutorialDataService.remove(currentTutorial.id)
       .then((response) => {
-        console.log(response.data);
         props.history.push("/tutorials");
       })
       .catch((e) => {
@@ -105,33 +105,36 @@ const Tutorial = (props) => {
               <label>
                 <strong>Status:</strong>
               </label>
-              {currentTutorial.published ? "Published" : "Pending"}
+              {currentTutorial.published ? " Published" : " Pending"}
             </div>
           </form>
 
           {currentTutorial.published ? (
             <button
-              className="badge badge-primary mr-2"
+              className="mr-5 btn btn-outline-warning btn-sm "
               onClick={() => updatePublished(false)}
             >
-              UnPublish
+              Unpublish
             </button>
           ) : (
             <button
-              className="badge badge-primary mr-2"
+              className="mr-5 btn btn-outline-primary btn-sm "
               onClick={() => updatePublished(true)}
             >
               Publish
             </button>
           )}
 
-          <button className="badge badge-danger mr-2" onClick={deleteTutorial}>
+          <button
+            className="mr-5 btn btn-outline-danger btn-sm "
+            onClick={deleteTutorial}
+          >
             Delete
           </button>
 
           <button
             type="submit"
-            className="badge badge-success"
+            className="mr-5 btn btn-outline-success btn-sm "
             onClick={updateTutorial}
           >
             Update

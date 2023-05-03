@@ -13,12 +13,12 @@ function App() {
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <a href="/" className="navbar-brand">
-          Cyril
+          TutShop
         </a>
 
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link to={"/tutorials"} className="nav-link">
+            <Link to={"/"} className="nav-link">
               Tutorials
             </Link>
           </li>
@@ -35,7 +35,7 @@ function App() {
         <Routes>
           <Route path="/" element={<TutorialsList />} />
           <Route path="/add" element={<AddTutorial />} />
-          <Route path="/tutorials/:id" element={<Tutorial />} />
+          <Route path="/tutorial/:id" element={<Tutorial />} />
         </Routes>
       </div>
     </div>

@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useTable } from "react-table";
 import TutorialDataService from "../services/TutorialService";
+import { useNavigate } from "react-router-dom";
 
 const TutorialsList = (props) => {
   const [tutorials, setTutorials] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
   const tutorialsRef = useRef();
+
+  const history = useNavigate();
 
   tutorialsRef.current = tutorials;
 
@@ -56,7 +59,7 @@ const TutorialsList = (props) => {
   const openTutorial = (rowIndex) => {
     const id = tutorialsRef.current[rowIndex].id;
 
-    props.history.push("/tutorials/" + id);
+    history(`/tutorial/${id}`);
   };
 
   const deleteTutorial = (rowIndex) => {
@@ -64,8 +67,6 @@ const TutorialsList = (props) => {
 
     TutorialDataService.remove(id)
       .then((response) => {
-        props.history.push("/tutorials");
-
         let newTutorials = [...tutorialsRef.current];
         newTutorials.splice(rowIndex, 1);
 
@@ -100,7 +101,10 @@ const TutorialsList = (props) => {
           const rowIdx = props.row.id;
           return (
             <div>
-              <span onClick={() => openTutorial(rowIdx)}>
+              <span
+                onClick={() => openTutorial(rowIdx)}
+                style={{ marginRight: "20px" }}
+              >
                 <i className="far fa-edit action mr-2"></i>
               </span>
 
