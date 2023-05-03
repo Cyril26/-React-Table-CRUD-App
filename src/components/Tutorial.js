@@ -139,11 +139,10 @@ const Tutorial = (props) => {
           >
             Update
           </button>
-          <p>{message}</p>
+          <p style={{ marginTop: "20px" }}>{message}</p>
         </div>
       ) : (
         <div>
-          <br />
           <p>Please click on a Tutorial...</p>
         </div>
       )}
